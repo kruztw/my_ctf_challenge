@@ -10,7 +10,8 @@ void menu()
 	printf("1. create note\n");
 	printf("2. delete note\n");
 	printf("3. edit note\n");
-	printf("4. give up\n");
+	printf("4. copy note to message\n");
+	printf("5. give up\n");
 	printf("Your choice: ");
 }
 

